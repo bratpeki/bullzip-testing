@@ -1,0 +1,26 @@
+
+name: build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: [windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'liberica'
+          java-version: '11'
+      - name: Install dependencies
+        run: |
+          curl -L -o setup.exe https://www.bullzip.com/download/pdf/Setup_BullzipPDFPrinter_2025_2_0_2990.exe
+          :: Added /VERYSILENT and /SUPPRESSMSGBOXES to kill the popups/rollback
+          setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ACCEPT_EULA
+      - name: Run tests
+        shell: powershell
+        run: |
+          # The spooler needs a kick to see the new driver
+          Restart-Service Spooler -Force
+          Start-Sleep -Seconds 5
+          Get-Printer -Name "Bullzip PDF Printer"
