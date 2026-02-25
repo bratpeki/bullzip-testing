@@ -15,7 +15,6 @@ jobs:
       - name: Install dependencies
         run: |
           curl -L -o setup.exe https://www.bullzip.com/download/pdf/Setup_BullzipPDFPrinter_2025_2_0_2990.exe
-          :: Added /VERYSILENT and /SUPPRESSMSGBOXES to kill the popups/rollback
           setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ACCEPT_EULA
       - name: Run tests
         shell: powershell
