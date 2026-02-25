@@ -13,9 +13,10 @@ jobs:
           distribution: 'liberica'
           java-version: '11'
       - name: Install dependencies
+        shell: powershell
         run: |
           curl -L -o setup.exe https://www.bullzip.com/download/pdf/Setup_BullzipPDFPrinter_2025_2_0_2990.exe
-          setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ACCEPT_EULA
+          .\setup.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /ACCEPT_EULA
       - name: Run tests
         shell: powershell
         run: |
